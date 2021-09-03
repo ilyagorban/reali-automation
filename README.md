@@ -1,5 +1,7 @@
 # configuration
 
+exposed python-app: http://a48beea503e8d4918a57f37cc15ae635-1268060900.us-east-1.elb.amazonaws.com/
+
 ## Created repo and their purpose
 
 - `python-app` (dockerfile + CI automation): `git@github.com:ilyagorban/python-app.git`
@@ -78,6 +80,10 @@ argocd app sync apps
 ## local test for deployed
 
 `sudo kubectl port-forward svc/helm-python-app 8081:80 -n application`
+
+## finally deployed python-app
+
+http://a48beea503e8d4918a57f37cc15ae635-1268060900.us-east-1.elb.amazonaws.com/
 
 ## Things for production
 
