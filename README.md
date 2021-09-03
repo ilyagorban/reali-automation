@@ -2,20 +2,20 @@
 
 ## Created repo and their purpose
 
-- python-app (dockerfile + CI automation): `git@github.com:ilyagorban/python-app.git`
-- reali-automation (terragrunt/terraform + overall readme): `git@github.com:ilyagorban/reali-automation.git`
-- reali-argo-app (GitOps CD config for ArgoCD): `git@github.com:ilyagorban/reali-argo-app.git`
+- `python-app` (dockerfile + CI automation): `git@github.com:ilyagorban/python-app.git`
+- `reali-automation` (terragrunt/terraform + overall readme): `git@github.com:ilyagorban/reali-automation.git`
+- `reali-argo-app` (GitOps CD config for ArgoCD): `git@github.com:ilyagorban/reali-argo-app.git`
 
 ## Configuration of python-app repo
 
 - add dockerhub credentials to repo secrets
 - enable GitHub Actions
+- add github token with permissions to update `reali-argo-app` repo
 
 ## AWS role/user
 
-```
-export AWS_PROFILE=name-of-profile
-```
+- configure user credentials in profile `test`
+- configure `test` profile to be default: `export AWS_PROFILE=test`
 
 ## asdf (tools installation)
 
@@ -25,7 +25,7 @@ asdf plugin-add terragrunt https://github.com/lotia/asdf-terragrunt.git
 asdf plugin-add terraform https://github.com/Banno/asdf-hashicorp.git
 ```
 
-from folder of `.tool-versions`: `asdf install`
+from the root folder of `reali-automation`: `asdf install`
 
 ## Terragrunt
 
@@ -41,7 +41,7 @@ from folder of `.tool-versions`: `asdf install`
 
 ## Switch to the new EKS cluster
 
-`aws eks update-kubeconfig --name reali-ilyagorban --region us-east-1 --profile name-of-profile`
+`aws eks update-kubeconfig --name reali-ilyagorban --region us-east-1 --profile test`
 
 ## argocd cli installation
 
@@ -74,6 +74,10 @@ argocd app create apps \
     --path apps
 argocd app sync apps
 ```
+
+## local test for deployed
+
+`sudo kubectl port-forward svc/helm-python-app 8081:80 -n application`
 
 ## Things for production
 
